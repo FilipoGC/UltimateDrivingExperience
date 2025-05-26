@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 471035000360564315}
   - component: {fileID: 6973129559204548225}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: CeilingRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3981961567885089216}
   - component: {fileID: 7137528278427503139}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2879767988126354330}
   - component: {fileID: 2235726389923041183}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5816651783086625125}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: DoorHandles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 6203311156897071643}
   - component: {fileID: 78315392508142522}
   - component: {fileID: 4844607470361313911}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: OutsideLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -804,7 +804,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5789331283405408844}
   - component: {fileID: 1021478942834004006}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: CeilingLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +861,7 @@ GameObject:
   - component: {fileID: 5842252275999986492}
   - component: {fileID: 387221693938129727}
   - component: {fileID: 634800032981516845}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: OutsideRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,7 +1046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3126382936965587427}
   - component: {fileID: 6963342074325062538}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1127,7 +1127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6027450175346072594}
   - component: {fileID: 6862274922191096769}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1211,7 @@ GameObject:
   - component: {fileID: 8611095572107259981}
   - component: {fileID: 9152613320389169931}
   - component: {fileID: 4969279620118546638}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Car_WithScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1560,7 +1560,7 @@ GameObject:
   - component: {fileID: 293469143695926282}
   - component: {fileID: 5063008476694386870}
   - component: {fileID: 7003280154441651283}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: InsideRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1747,7 +1747,7 @@ GameObject:
   - component: {fileID: 1716357899806125558}
   - component: {fileID: 4923727555287452252}
   - component: {fileID: 1417420132254489761}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: InsideLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1933,7 +1933,7 @@ GameObject:
   - component: {fileID: 6754082120005829345}
   - component: {fileID: 2004844385033213354}
   - component: {fileID: 3841582565804782453}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: CeilingHandles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
