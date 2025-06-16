@@ -35,8 +35,16 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
         }
         public void cellinghand()
         {
+            MovementScript.enabled = true;
+            //CarScript.enabled = false;
+            Automatic.enabled = false;
 
-
+        }
+        public void cellinghandOut()
+        {
+            MovementScript.enabled = false;
+            //CarScript.enabled = true;
+            Automatic.enabled = true;
 
         }
     }
