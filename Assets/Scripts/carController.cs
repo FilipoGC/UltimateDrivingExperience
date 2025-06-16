@@ -9,19 +9,23 @@ public class carController : MonoBehaviour
 
     public float steeringMultiplier = 15;
 
-    private float rollingResistance = 18;
-
     private float engineRPM = 0;
     [SerializeField]
     private float RPMIncreaseRatio = 30f;
     [SerializeField]
     private float RPMDecreaseRatio = 15f;
     [SerializeField]
+    private float rollingResistance = 18;
+    [SerializeField]
+    private float airResistance = 0.35f;
+    [SerializeField]
     private float maxRPM = 8000;
     [SerializeField]
     private float minRPM = 0;
     [SerializeField]
     private float killEngineRPM = 900;
+    [SerializeField]
+    private float wheelMatchupRate = 10;
 
     public bool isEngineRunning;
 
@@ -128,7 +132,7 @@ public class carController : MonoBehaviour
         for (int i = 0; i < WheelF.Length; i++)
         {
             WheelF[i].steerAngle = steering;
-            WheelF[i].brakeTorque = (brakeCurve.Evaluate(brakes) * brakesForce) + (rollingResistance * GetWheelKPH());
+            WheelF[i].brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
         }
 
 
@@ -142,7 +146,7 @@ public class carController : MonoBehaviour
                 engineTorque = gasPedal * maxThrottleCurve.Evaluate(engineRPM / maxRPM);
             }
             else{
-                engineTorque = ((gasPedal * maxThrottleCurve.Evaluate(engineRPM / maxRPM)) + ((1-gasPedal) * minThrottleCurve.Evaluate(engineRPM / maxRPM)));
+                engineTorque = (gasPedal * maxThrottleCurve.Evaluate(engineRPM / maxRPM)) + ((1-gasPedal) * minThrottleCurve.Evaluate(engineRPM / maxRPM));
             }
         }
         else
@@ -151,7 +155,7 @@ public class carController : MonoBehaviour
         }
         
         //Update engine RPM according to the torque and inertia
-        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio;
+        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * engineRPM * 0.001f);
 
         //Verify engine status
         if (engineRPM < minRPM)
@@ -173,14 +177,13 @@ public class carController : MonoBehaviour
         for (int i = 0; i < WheelR.Length; i++)
         {
             WheelR[i].motorTorque = engineTorque * driveTrainMultiplier * maxTorque * gearRatio[currentGear] * (1 - clutchPedal);
-            WheelR[i].brakeTorque = rollingResistance * GetWheelKPH();
         }
 
         if (currentGear != 0)
         {
             float matchupRPM = GetWheelMatchupRPM();
             //Match the engine RPM according to the rate in which the wheels are turning
-            engineRPM = (matchupRPM * (1 - clutchPedal)) + (engineRPM * clutchPedal);
+            engineRPM = wheelMatchupRate * ((engineRPM * clutchPedal) - (matchupRPM * (1 - clutchPedal)));
         }
         if(panel != null){
             panel.UpdateDisplay(GetWheelKPH(),engineRPM,GetCurrentGear());
