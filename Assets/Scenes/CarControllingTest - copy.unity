@@ -150,13 +150,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52069673}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.006795769, y: 0.27512714, z: 0.0019448053, w: 0.96138185}
-  m_LocalPosition: {x: -0, y: 0, z: -0.0495}
+  m_LocalRotation: {x: 0, y: 0.27563733, z: 0, w: 0.96126175}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1347244092}
-  m_LocalEulerAnglesHint: {x: -0.81, y: 31.94, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 32, z: 0}
 --- !u!114 &52069675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,9 +240,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.03
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2468,13 +2468,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901028745}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6758085, y: 0.6844743, z: 0.19459017, w: -0.19212656}
-  m_LocalPosition: {x: 0.0061, y: -0.002, z: -0.0013}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.0056, y: 0, z: -0.0025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1424607723}
-  m_LocalEulerAnglesHint: {x: -31.74, y: 180, z: 89.27}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &901028747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2558,9 +2558,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.03
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2605,13 +2605,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004202007}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9618718, y: 0.022477992, z: -0.25953296, w: 0.08330713}
-  m_LocalPosition: {x: 0.021, y: 0, z: -0.0183}
+  m_LocalRotation: {x: 0.96126175, y: 0, z: -0.27563733, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 374904372}
-  m_LocalEulerAnglesHint: {x: 9.9, y: 210.2, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 212, z: 180}
 --- !u!114 &1004202009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2695,9 +2695,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.03
   far clip plane: 1000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -4423,6 +4423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033669c0c5cf637499ac99d75a41be9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CarScript: {fileID: 0}
+  Automatic: {fileID: 0}
+  MovementScript: {fileID: 0}
+  PlayerTransform: {fileID: 0}
+  targetPostion: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &1936590193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4435,6 +4441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f167105ce47a5704a832172861ce950c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Manual: {fileID: 0}
+  Automatic: {fileID: 0}
 --- !u!114 &1936590194 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4967692471609768910, guid: 1c2bc521e8eafec48861fec45c89e11c,
@@ -4530,6 +4538,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebac76b92e837c49b7ebbd22af0ece2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WheelF: []
+  WheelR: []
+  steeringMultiplier: 15
+  maxTorque: 300
+  throttleCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  brakeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  brakesForce: 5000
+  steering: 0
+  isEngineRunning: 0
+  panel: {fileID: 0}
 --- !u!1 &1987004955
 GameObject:
   m_ObjectHideFlags: 0
