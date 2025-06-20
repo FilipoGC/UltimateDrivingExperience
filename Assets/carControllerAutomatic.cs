@@ -62,7 +62,7 @@ public class carControllerAutomatic : MonoBehaviour
         foreach (var wheel in WheelF)
         {
             wheel.steerAngle = steering;
-            wheel.brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce + (rollingResistance * GetWheelKPH());
+            wheel.brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
         }
 
         //Torque application
@@ -71,7 +71,7 @@ public class carControllerAutomatic : MonoBehaviour
         foreach (var wheel in WheelR)
         {
             wheel.motorTorque = torque;
-            wheel.brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce + (rollingResistance * GetWheelKPH());
+            //wheel.brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce + (rollingResistance * GetWheelKPH());
         }
 
         if (panel != null)
