@@ -62,12 +62,49 @@ public class carController : MonoBehaviour
 
     public PanelController panel;
 
+
+    public bool isOnline = false;
+
+    public void Turn()
+    {
+        if (isOnline)
+        {
+            isOnline = false;
+            isEngineRunning = false;
+            engineRPM = 0;
+            currentGear = 0;
+        }
+        else
+        {
+            isOnline = true;
+            isEngineRunning = false;
+            engineRPM = 0;
+            currentGear = 0;
+        }
+    }
+    public void Turn(bool set)
+    {
+        if (!set)
+        {
+            isOnline = false;
+            isEngineRunning = false;
+            engineRPM = 0;
+            currentGear = 0;
+        }
+        else
+        {
+            isOnline = true;
+            isEngineRunning = false;
+            engineRPM = 0;
+            currentGear = 0;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Start()
     {
         inputActions = new InputSystem_Actions();
-        inputActions.Enable();
-
         inputActions.VRDriving.ClutchPedal.performed += context =>
         {
             clutchPedal = clutchCurve.Evaluate(Mathf.Abs(context.ReadValue<Vector2>().x));
@@ -112,12 +149,24 @@ public class carController : MonoBehaviour
         engineRPM = 0;
         currentGear = 0;
 
-        if(panel == null){
+        if (panel == null)
+        {
             panel = GetComponent<PanelController>();
-            if(panel = null){
+            if (panel = null)
+            {
                 Debug.Log("Panel not found!!!");
             }
         }
+    }
+
+    void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Disable();
     }
 
 
@@ -128,6 +177,11 @@ public class carController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!isOnline)
+        {
+            return;
+        }
+
         //Steering
         for (int i = 0; i < WheelF.Length; i++)
         {

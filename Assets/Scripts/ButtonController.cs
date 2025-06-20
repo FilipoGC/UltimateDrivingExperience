@@ -14,12 +14,16 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
         public void PressedButton()
         {
             Manual.enabled = false;
+            Manual.Turn(false);
             Automatic.enabled = true;
+            Automatic.Turn(true);
         }
         public void RealesedButton()
         {
             Manual.enabled = true;
+            Manual.Turn(true);
             Automatic.enabled = false;
+            Automatic.Turn(false);
 
         }
     }

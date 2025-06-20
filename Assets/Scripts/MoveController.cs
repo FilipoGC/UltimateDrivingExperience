@@ -26,6 +26,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             MovementScript.enabled = false;
             //CarScript.enabled = true;
             Automatic.enabled = true;
+            Automatic.Turn(true);
             PlayerOrigin.MoveCameraToWorldLocation(TargetPositionIn.position);
             //PlayerTransform.rotation = Quaternion.Euler(targetRotation);
 
@@ -37,6 +38,9 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             MovementScript.enabled = true;
             //CarScript.enabled = true;
             Automatic.enabled = false;
+            Automatic.Turn(false);
+            CarScript.enabled = false;
+            CarScript.Turn(false);
             PlayerOrigin.MoveCameraToWorldLocation(TargetPositionOut.position);
 
         }
