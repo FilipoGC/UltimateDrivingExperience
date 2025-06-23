@@ -105,6 +105,7 @@ public class carController : MonoBehaviour
     private void Start()
     {
         inputActions = new InputSystem_Actions();
+        inputActions.Enable();
         inputActions.VRDriving.ClutchPedal.performed += context =>
         {
             clutchPedal = clutchCurve.Evaluate(Mathf.Abs(context.ReadValue<Vector2>().x));
@@ -158,7 +159,7 @@ public class carController : MonoBehaviour
             }
         }
     }
-
+    /*
     void OnEnable()
     {
         inputActions.Enable();
@@ -168,7 +169,7 @@ public class carController : MonoBehaviour
     {
         inputActions.Disable();
     }
-
+    */
 
     public void UpdateSteering(float newSteer)
     {

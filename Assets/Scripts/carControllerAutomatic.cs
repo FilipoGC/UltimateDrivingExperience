@@ -84,14 +84,27 @@ public class carControllerAutomatic : MonoBehaviour
     private void Start()
     {
         inputActions = new InputSystem_Actions();
-        
+        inputActions.Enable();
 
         inputActions.VRDriving.RightPedal.performed += context =>
         {
             float pedalValue = context.ReadValue<Vector2>().y;
 
-            gasPedal = Mathf.Clamp01(pedalValue);     // forward = accelerate
-            brakes = Mathf.Clamp01(-pedalValue);      // backward = brake
+            if (pedalValue > 0)
+            {
+                gasPedal = pedalValue;
+                brakes = 0;
+            }
+            else if (pedalValue < 0)
+            {
+                gasPedal = 0;
+                brakes = -pedalValue;
+            }
+            else
+            {
+                gasPedal = 0;
+                brakes = 0;
+            }
         };
 
         inputActions.VRDriving.TurnEngine.performed += context =>
@@ -118,6 +131,7 @@ public class carControllerAutomatic : MonoBehaviour
             }
         }
     }
+    /*
     void OnEnable()
     {
         inputActions.Enable();
@@ -127,7 +141,7 @@ public class carControllerAutomatic : MonoBehaviour
     {
         inputActions.Disable();
     }
-    
+    */
     void ChangeMode(int newMode)
     {
         if (newMode >= 0 && newMode < Modes.Length)
@@ -182,9 +196,9 @@ public class carControllerAutomatic : MonoBehaviour
         //Update engine RPM according to the torque and inertia
         engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * engineRPM * 0.001f);
 
-        if(engineRPM < 0)
+        if(engineRPM < 1000f)
         {
-            engineRPM = 0;
+            engineRPM = 1000f;
         }
 
         if (Modes[currentMode] > 0)
@@ -204,6 +218,7 @@ public class carControllerAutomatic : MonoBehaviour
         for (int i = 0; i < WheelR.Length; i++)
         {
             WheelR[i].motorTorque = engineTorque * driveTrainMultiplier * maxTorque * currentGear;
+            WheelF[i].brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
         }
 
         
@@ -226,7 +241,7 @@ public class carControllerAutomatic : MonoBehaviour
         {
             currentSpeed += WheelF[i].rpm;
         }
-
+        currentSpeed = Mathf.Abs(currentSpeed);
         currentSpeed = currentSpeed / WheelR.Length;
 
         currentSpeed = currentSpeed * 0.11304f; //* 0.3f * 60f * 2f * 3.14f / 1000f;
