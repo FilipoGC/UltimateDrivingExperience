@@ -267,7 +267,7 @@ MonoBehaviour:
   maxRPM: 8000
   minRPM: 0
   killEngineRPM: 800
-  wheelMatchupRate: 10
+  wheelMatchupRate: 1
   isEngineRunning: 0
   gearRatio:
   - 0
