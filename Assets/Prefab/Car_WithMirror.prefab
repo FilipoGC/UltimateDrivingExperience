@@ -538,7 +538,7 @@ MonoBehaviour:
   - {fileID: 1291316654103447863}
   steeringMultiplier: 30
   maxTorque: 300
-  throttleCurve:
+  maxThrottleCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -607,6 +607,57 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  minThrottleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.4
+      inSlope: -0.32912093
+      outSlope: Infinity
+      tangentMode: 97
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.3312765
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.4
+      inSlope: Infinity
+      outSlope: -0.290206
+      tangentMode: 7
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.29203644
+      value: 0.25785154
+      inSlope: -0.74835426
+      outSlope: -0.74835426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15724595
+    - serializedVersion: 3
+      time: 0.86169183
+      value: 0.0019290447
+      inSlope: -0.23160292
+      outSlope: -0.23160292
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 103
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   brakeCurve:
     serializedVersion: 2
     m_Curve:
@@ -653,6 +704,7 @@ MonoBehaviour:
   steering: 0
   isEngineRunning: 0
   maxRPM: 8000
+  minRPM: 1000
   RPMIncreaseRatio: 100
   RPMDecreaseRatio: 25
   rollingResistance: 1.8
