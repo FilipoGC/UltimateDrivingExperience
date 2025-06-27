@@ -12,7 +12,9 @@ public class carControllerAutomatic : MonoBehaviour
     private float maxTorque = 300f;
 
     [SerializeField]
-    private AnimationCurve throttleCurve;
+    private AnimationCurve maxThrottleCurve;
+    [SerializeField]
+    private AnimationCurve minThrottleCurve;
     [SerializeField]
     private AnimationCurve brakeCurve;
 
@@ -24,6 +26,10 @@ public class carControllerAutomatic : MonoBehaviour
     private float brakes;
 
     private float engineRPM = 0;
+    [SerializeField]
+    private float maxRPM = 8000f;
+    [SerializeField]
+    private float minRPM = 1000f;
     [SerializeField]
     private float RPMIncreaseRatio = 30f;
     [SerializeField]
@@ -86,27 +92,6 @@ public class carControllerAutomatic : MonoBehaviour
         inputActions = new InputSystem_Actions();
         inputActions.Enable();
 
-        inputActions.VRDriving.RightPedal.performed += context =>
-        {
-            float pedalValue = context.ReadValue<Vector2>().y;
-
-            if (pedalValue > 0)
-            {
-                gasPedal = pedalValue;
-                brakes = 0;
-            }
-            else if (pedalValue < 0)
-            {
-                gasPedal = 0;
-                brakes = -pedalValue;
-            }
-            else
-            {
-                gasPedal = 0;
-                brakes = 0;
-            }
-        };
-
         inputActions.VRDriving.TurnEngine.performed += context =>
         {
             SwitchEngine();
@@ -166,7 +151,31 @@ public class carControllerAutomatic : MonoBehaviour
     {
         steering = (newSteer - 0.5f) * steeringMultiplier * 2;
     }
+    private void Update()
+    {
+        if (!isOnline)
+        {
+            return;
+        }
 
+        float pedalValue = inputActions.VRDriving.RightPedal.ReadValue<Vector2>().y;
+
+        if (pedalValue > 0)
+        {
+            gasPedal = pedalValue;
+            brakes = 0;
+        }
+        else if (pedalValue < 0)
+        {
+            gasPedal = 0;
+            brakes = -pedalValue;
+        }
+        else
+        {
+            gasPedal = 0;
+            brakes = 0;
+        }
+    }
     void FixedUpdate()
     {
         if (!isOnline)
@@ -186,7 +195,14 @@ public class carControllerAutomatic : MonoBehaviour
         float engineTorque;
         if (isEngineRunning)
         {
-            engineTorque = throttleCurve.Evaluate(gasPedal);
+            if ((engineRPM - minRPM) / (maxRPM - minRPM) < gasPedal)
+            {
+                engineTorque = gasPedal * maxThrottleCurve.Evaluate(engineRPM / maxRPM);
+            }
+            else
+            {
+                engineTorque = (gasPedal * maxThrottleCurve.Evaluate(engineRPM / maxRPM)) + ((1 - gasPedal) * minThrottleCurve.Evaluate(engineRPM / maxRPM));
+            }
         }
         else
         {
@@ -194,18 +210,24 @@ public class carControllerAutomatic : MonoBehaviour
         }
 
         //Update engine RPM according to the torque and inertia
-        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * engineRPM * 0.001f);
+        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * GetWheelKPH());
 
-        if(engineRPM < 1000f)
+        if (engineRPM < 0)
         {
-            engineRPM = 1000f;
+            engineRPM = 0;
         }
+        else if (engineRPM > maxRPM)
+        {
+            engineRPM = maxRPM;
+        }
+
 
         if (Modes[currentMode] > 0)
         {
             currentGear = maxTorque / (1 + GetWheelKPH());
         }
-        else if (Modes[currentMode] < 0) {
+        else if (Modes[currentMode] < 0)
+        {
             currentGear = maxTorque / ((-1 - GetWheelKPH()) * 2);
         }
         else
@@ -213,12 +235,11 @@ public class carControllerAutomatic : MonoBehaviour
             currentGear = 0;
         }
 
-
         //Apply said torque on the wheels
         for (int i = 0; i < WheelR.Length; i++)
         {
-            WheelR[i].motorTorque = engineTorque * driveTrainMultiplier * maxTorque * currentGear;
-            WheelF[i].brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
+            WheelR[i].motorTorque = (engineTorque * driveTrainMultiplier * maxTorque * currentGear) - (rollingResistance * GetWheelKPH());
+            WheelR[i].brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
         }
 
         

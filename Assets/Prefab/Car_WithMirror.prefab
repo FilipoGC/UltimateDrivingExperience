@@ -262,7 +262,7 @@ MonoBehaviour:
   steeringMultiplier: 30
   RPMIncreaseRatio: 100
   RPMDecreaseRatio: 25
-  rollingResistance: 18
+  rollingResistance: 1.8
   airResistance: 0.35
   maxRPM: 8000
   minRPM: 0
@@ -411,16 +411,16 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.14999999
-      value: 0.00027871318
-      inSlope: 2
-      outSlope: 2
+      time: 0.1
+      value: 0
+      inSlope: 0.011320759
+      outSlope: 0.011320759
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 1
       outWeight: 0
     - serializedVersion: 3
-      time: 0.9
+      time: 0.90000004
       value: 1
       inSlope: 0
       outSlope: 0
@@ -431,9 +431,9 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
+      inSlope: Infinity
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 7
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -455,11 +455,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.1
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0.011320759
+      outSlope: 0.011320759
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 1
       outWeight: 0
     - serializedVersion: 3
       time: 0.90000004
@@ -485,6 +485,7 @@ MonoBehaviour:
   brakesForce: 1000
   steering: 0
   panel: {fileID: 4356200237514763648}
+  isOnline: 0
 --- !u!114 &4356200237514763648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +517,7 @@ MonoBehaviour:
   leftWheel: {fileID: 991295802003764461}
   rightWheel: {fileID: 490814986551714552}
   steeringKnob: {fileID: 3465662894427471141}
-  maxWheelRotation: 35
+  maxWheelRotation: 30
 --- !u!114 &8594871553993202529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,26 +536,71 @@ MonoBehaviour:
   WheelR:
   - {fileID: 6482593433296372084}
   - {fileID: 1291316654103447863}
-  steeringMultiplier: 15
+  steeringMultiplier: 30
   maxTorque: 300
   throttleCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.03768921
+      value: 0.49928284
+      inSlope: Infinity
+      outSlope: 2
+      tangentMode: 7
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.10418278
+      value: 0.8975777
+      inSlope: 0.8987402
+      outSlope: 0.8987402
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.4661826
+    - serializedVersion: 3
+      time: 0.419552
+      value: 0.99296266
+      inSlope: 0.12973598
+      outSlope: 0.12973598
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.7888038
+    - serializedVersion: 3
+      time: 0.7117789
+      value: 0.8979136
+      inSlope: -0.72265977
+      outSlope: -0.72265977
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.36795747
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9715407
+      value: 0.0040103197
+      inSlope: -2.696352
+      outSlope: Infinity
+      tangentMode: 97
+      weightedMode: 0
+      inWeight: 0.07700165
+      outWeight: 0
+    - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -567,33 +613,53 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: Infinity
+      tangentMode: 97
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.14999999
+      value: 0.00027871318
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  brakesForce: 5000
+  brakesForce: 1000
   steering: 0
   isEngineRunning: 0
-  RPMIncreaseRatio: 30
-  RPMDecreaseRatio: 15
-  rollingResistance: 18
+  maxRPM: 8000
+  RPMIncreaseRatio: 100
+  RPMDecreaseRatio: 25
+  rollingResistance: 1.8
   driveTrainMultiplier: 3
   Modes: 0000000001000000ffffffff
   panel: {fileID: 4356200237514763648}
+  isOnline: 0
 --- !u!1 &1946807266784964460
 GameObject:
   m_ObjectHideFlags: 0

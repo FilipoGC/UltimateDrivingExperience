@@ -106,31 +106,6 @@ public class carController : MonoBehaviour
     {
         inputActions = new InputSystem_Actions();
         inputActions.Enable();
-        inputActions.VRDriving.ClutchPedal.performed += context =>
-        {
-            clutchPedal = clutchCurve.Evaluate(Mathf.Abs(context.ReadValue<Vector2>().x));
-        };
-
-        inputActions.VRDriving.RightPedal.performed += context =>
-        {
-            float pedalValue = context.ReadValue<Vector2>().y;
-
-            if (pedalValue > 0)
-            {
-                gasPedal = pedalValue;
-                brakes = 0;
-            }
-            else if (pedalValue < 0)
-            {
-                gasPedal = 0;
-                brakes = -pedalValue;
-            }
-            else
-            {
-                gasPedal = 0;
-                brakes = 0;
-            }
-        };
 
         inputActions.VRDriving.TurnEngine.performed += context =>
         {
@@ -175,7 +150,34 @@ public class carController : MonoBehaviour
     {
         steering = (newSteer - 0.5f) * steeringMultiplier * 2;
     }
+    private void Update()
+    {
+        if (!isOnline)
+        {
+            return;
+        }
 
+        clutchPedal = clutchCurve.Evaluate(Mathf.Abs(inputActions.VRDriving.ClutchPedal.ReadValue<Vector2>().y));
+
+
+        float pedalValue = inputActions.VRDriving.RightPedal.ReadValue<Vector2>().y;
+
+        if (pedalValue > 0)
+        {
+            gasPedal = pedalValue;
+            brakes = 0;
+        }
+        else if (pedalValue < 0)
+        {
+            gasPedal = 0;
+            brakes = -pedalValue;
+        }
+        else
+        {
+            gasPedal = 0;
+            brakes = 0;
+        }
+    }
     void FixedUpdate()
     {
         if (!isOnline)
@@ -210,7 +212,7 @@ public class carController : MonoBehaviour
         }
         
         //Update engine RPM according to the torque and inertia
-        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * engineRPM * 0.001f);
+        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * GetWheelKPH());
 
         //Verify engine status
         if (engineRPM < minRPM)
@@ -231,7 +233,8 @@ public class carController : MonoBehaviour
         //Apply said torque on the wheels
         for (int i = 0; i < WheelR.Length; i++)
         {
-            WheelR[i].motorTorque = engineTorque * driveTrainMultiplier * maxTorque * gearRatio[currentGear] * (1 - clutchPedal);
+            WheelR[i].motorTorque = (engineTorque * driveTrainMultiplier * maxTorque * gearRatio[currentGear] * (1 - clutchPedal)) - (rollingResistance * GetWheelKPH());
+            WheelR[i].brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
         }
 
         if (currentGear != 0)
@@ -241,7 +244,7 @@ public class carController : MonoBehaviour
             engineRPM = wheelMatchupRate * ((engineRPM * clutchPedal) - (matchupRPM * (1 - clutchPedal)));
         }
         if(panel != null){
-            panel.UpdateDisplay(GetWheelKPH(),engineRPM,GetCurrentGear());
+            panel.UpdateDisplay(GetWheelKPH(), engineRPM, GetCurrentGear());
         }
     }
 
