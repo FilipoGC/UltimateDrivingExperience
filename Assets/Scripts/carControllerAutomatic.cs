@@ -209,6 +209,11 @@ public class carControllerAutomatic : MonoBehaviour
             engineTorque = 0;
         }
 
+        if (panel != null)
+        {
+            panel.UpdateDisplay(GetWheelKPH(), engineRPM, currentMode);
+        }
+
         //Update engine RPM according to the torque and inertia
         engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * GetWheelKPH());
 
@@ -243,10 +248,6 @@ public class carControllerAutomatic : MonoBehaviour
         }
 
         
-        if (panel != null)
-        {
-            panel.UpdateDisplay(GetWheelKPH(), engineRPM, currentMode);
-        }
     }
 
     public float GetEngineRPM()

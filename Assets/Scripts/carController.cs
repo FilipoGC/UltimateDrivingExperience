@@ -212,7 +212,7 @@ public class carController : MonoBehaviour
         }
         
         //Update engine RPM according to the torque and inertia
-        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio - (rollingResistance * GetWheelKPH());
+        engineRPM += (engineTorque * RPMIncreaseRatio) - RPMDecreaseRatio;
 
         //Verify engine status
         if (engineRPM < minRPM)
@@ -237,14 +237,16 @@ public class carController : MonoBehaviour
             WheelR[i].brakeTorque = brakeCurve.Evaluate(brakes) * brakesForce;
         }
 
+        if (panel != null)
+        {
+            panel.UpdateDisplay(GetWheelKPH(), engineRPM, GetCurrentGear());
+        }
+
         if (currentGear != 0)
         {
             float matchupRPM = GetWheelMatchupRPM();
             //Match the engine RPM according to the rate in which the wheels are turning
-            engineRPM = wheelMatchupRate * ((engineRPM * clutchPedal) - (matchupRPM * (1 - clutchPedal)));
-        }
-        if(panel != null){
-            panel.UpdateDisplay(GetWheelKPH(), engineRPM, GetCurrentGear());
+            engineRPM += wheelMatchupRate * (matchupRPM - engineRPM) * (1 - clutchPedal);
         }
     }
 
