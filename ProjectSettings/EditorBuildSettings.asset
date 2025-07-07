@@ -5,10 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Scenes/CarControllingTest.unity
+    guid: 9a05cd193a361d34784261e52efcf43b
+  - enabled: 1
+    path: Assets/Scenes/CarControllingTest - copy.unity
+    guid: 672bcb7084f15084ba879e50b95dbefe
+  - enabled: 1
+    path: Assets/Scenes/ZigZag.unity
+    guid: 78824dd2f182b424cb552a7c0c83dd87
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: dc6474751bf4058429a725ab2e9af820,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 02d5c1af32aa01e4f857fa0e3f39400d,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e920a900b763d4b4b9fa14670cb0189f,
